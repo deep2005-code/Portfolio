@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepti — Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#08090E;
+  --pink:#F2A8BC;
+  --text:rgba(255,255,255,0.65);
+  --heading:'Archivo Black', sans-serif;
+  --body:'DM Sans', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:#fff;
+  font-family:var(--body);
+  letter-spacing:0.02em;
+  overflow-x:hidden;
+}
+
+/* background glow */
+body::before{
+  content:'';
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(242,168,188,0.08), transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(100,120,255,0.06), transparent 40%);
+  z-index:-1;
+}
+
+/* cursor */
+#cursor-dot,#cursor-ring{
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+}
+#cursor-dot{
+  width:8px;height:8px;background:#fff;border-radius:50%;
+}
+#cursor-ring{
+  width:35px;height:35px;border:1px solid rgba(255,255,255,0.3);border-radius:50%;
+}
+
+/* nav */
+nav{
+  position:fixed;
+  width:100%;
+  padding:25px 60px;
+  display:flex;
+  justify-content:space-between;
+}
+nav a{
+  color:#fff;text-decoration:none;font-size:12px;opacity:.7;
+}
+nav a:hover{color:var(--pink);}
+
+/* hero */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:140px 80px;
+}
+
+h1{
+  font-family:var(--heading);
+  font-size:clamp(90px,11vw,150px);
+}
+
+.hero-sub{
+  margin-top:20px;
+  font-size:17px;
+  color:var(--text);
+}
+
+/* image */
+.photo-wrap{
+  position:relative;
+  width:380px;height:480px;
+}
+.main-photo{
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* sanrio */
+.sanrio{position:absolute;}
+.kuromi{top:-25px;right:-25px;width:90px;}
+.hello{bottom:-25px;left:-25px;width:90px;}
+
+.sanrio img{width:100%;}
+
+/* section */
+section{padding:120px 80px;}
+.section-title{
+  font-family:var(--heading);
+  font-size:clamp(60px,7vw,100px);
+}
+
+.work-item{
+  margin-top:40px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:20px;
+}
+.work-title{
+  font-family:var(--heading);
+  font-size:34px;
+}
+.work-desc{
+  color:var(--text);
+  margin-top:10px;
+}
+
+/* reveal */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.8s;
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;text-align:center;}
+  .photo-wrap{margin:auto;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <div>Deepti ✦</div>
+  <div>
+    <a href="#">Work</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="hero reveal">
+  <div>
+    <h1>Deepti</h1>
+    <p class="hero-sub">Digital marketer & content creator building at the intersection of SEO & storytelling.</p>
+  </div>
+
+  <div class="photo-wrap">
+    <img src="Portfolio image.jpeg" class="main-photo">
+    <div class="sanrio kuromi"><img src="kuromi.jpg"></div>
+    <div class="sanrio hello"><img src="hello kitty.jpg"></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2 class="section-title">Work</h2>
+
+  <div class="work-item">
+    <div class="work-title">SEO Internship</div>
+    <div class="work-desc">Worked on SEO, keywords & analytics.</div>
+  </div>
+
+  <div class="work-item">
+    <div class="work-title">Content Strategy</div>
+    <div class="work-desc">Built content & social strategies.</div>
+  </div>
+</section>
+
+<script>
+const dot = document.getElementById("cursor-dot");
+const ring = document.getElementById("cursor-ring");
+
+window.addEventListener("mousemove", e => {
+  dot.style.left = e.clientX + "px";
+  dot.style.top = e.clientY + "px";
+  ring.style.left = e.clientX + "px";
+  ring.style.top = e.clientY + "px";
+});
+
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100){
+      el.classList.add("active");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
